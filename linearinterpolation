@@ -1,0 +1,29 @@
+from scipy import interpolate
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Datenpunkte
+x = np.array([1, 2, 3, 5])
+y = np.array([3, 4.5, 5, 6])
+
+# Erzeuge Interpolationsfunktionen für verschiedene Interpolationstypen
+f_linear = interpolate.interp1d(x, y, kind='linear')
+f_cubic = interpolate.interp1d(x, y, kind='cubic')
+f_quadratic = interpolate.interp1d(x, y, kind='quadratic')
+
+# Neue x-Werte für die Interpolation
+xnew = np.linspace(1, 5, num=100)  # Feineres Gitter für eine glattere Kurve
+
+# Berechne interpolierte y-Werte
+ynew_linear = f_linear(xnew)
+ynew_cubic = f_cubic(xnew)
+ynew_quadratic = f_quadratic(xnew)
+
+# Plot der Originaldaten und interpolierten Kurven
+plt.figure(figsize=(8, 6))
+plt.plot(x, y, 'o', label='Originaldaten')
+plt.plot(xnew, ynew_linear, '-', label='Lineare Interpolation')
+plt.plot(xnew, ynew_cubic, '--', label='Kubische Spline-Interpolation')
+plt.plot(xnew, ynew_quadratic, ':', label='Quadratische Interpolation')
+plt.legend()
+plt.show()
